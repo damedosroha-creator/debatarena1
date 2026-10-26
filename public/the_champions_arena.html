@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE CHAMPIONS ARENA — SMAS Tunas Baru Jin Seung Batam</title>
+  <meta name="description" content="Aplikasi Cerdas Cermat Mandiri Persiapan Juara 1 The Champions Arena - HME Polibatam">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050814;
+      --card-bg: #090e24;
+      --navy-dark: #0b132b;
+      --cyan: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.4);
+      --gold: #f59e0b;
+      --gold-glow: rgba(245, 158, 11, 0.4);
+      --emerald: #10b981;
+      --rose: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+    }
+    header {
+      background: rgba(5, 8, 20, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .badge-math { background: rgba(37, 99, 235, 0.2); color: #60a5fa; border-color: #3b82f6; }
+    .badge-phys { background: rgba(147, 51, 234, 0.2); color: #c084fc; border-color: #a855f7; }
+    .badge-eng { background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: #10b981; }
+    .badge-chem { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: #f59e0b; }
+
+    main {
+      flex: 1;
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .arena-card {
+      border: 2px solid rgba(6, 182, 212, 0.4);
+      box-shadow: 0 0 40px rgba(6, 182, 212, 0.15);
+      position: relative;
+    }
+    .q-text {
+      font-size: 1.45rem;
+      font-weight: 600;
+      line-height: 1.5;
+      margin: 16px 0 24px 0;
+      color: #ffffff;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .btn:active { transform: scale(0.96); }
+    .btn-gold {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #050814;
+      box-shadow: 0 0 20px var(--gold-glow);
+    }
+    .btn-cyan {
+      background: linear-gradient(135deg, #06b6d4, #0284c7);
+      color: #050814;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+    .btn-emerald {
+      background: #10b981;
+      color: #050814;
+    }
+    .btn-rose {
+      background: #ef4444;
+      color: #ffffff;
+    }
+    .btn-dark {
+      background: #0f172a;
+      border-color: #334155;
+      color: #e2e8f0;
+    }
+    .btn-dark:hover { background: #1e293b; }
+
+    /* Timer Box */
+    .timer-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      background: rgba(5, 8, 20, 0.7);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 16px 20px;
+      border-radius: 16px;
+      margin: 20px 0;
+    }
+    .timer-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      border: 2px solid var(--gold);
+      background: #050814;
+      color: var(--gold);
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 800;
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+    .timer-num { font-size: 1.8rem; line-height: 1; }
+    .timer-unit { font-size: 0.65rem; text-transform: uppercase; }
+    .timer-urgent {
+      border-color: var(--rose) !important;
+      color: var(--rose) !important;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.6) !important;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Grid Navigation */
+    .grid-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .grid-btn {
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid #1e293b;
+      background: #090e24;
+      color: #94a3b8;
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .grid-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 12px var(--gold-glow);
+      transform: scale(1.08);
+    }
+    .grid-btn.correct { background: rgba(16, 185, 129, 0.25); border-color: var(--emerald); color: var(--emerald); }
+    .grid-btn.wrong { background: rgba(239, 68, 68, 0.25); border-color: var(--rose); color: var(--rose); }
+
+    /* Answer box */
+    .answer-box {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(6, 182, 212, 0.05));
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+    .answer-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 8px 0;
+    }
+    .explanation {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    footer {
+      border-top: 1px solid #1e293b;
+      padding: 16px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #64748b;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="brand-title">THE CHAMPIONS ARENA</div>
+      <div class="brand-sub">SMAS TUNAS BARU JIN SEUNG BATAM • HME POLIBATAM</div>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <span class="badge badge-math" id="score-badge">Skor: 0B / 0S</span>
+      <button class="btn btn-dark" onclick="toggleAudio()" id="audio-toggle-btn" style="padding:6px 12px;">🔊 Audio</button>
+      <button class="btn btn-dark" onclick="openResetModal()" style="padding:6px 12px;">Reset</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- View: Question Card -->
+    <div id="arena-view" class="card arena-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <div style="display:flex; gap:8px; align-items:center;">
+          <span class="badge badge-math" id="q-category">MATEMATIKA</span>
+          <span class="badge" style="background:#1e293b; color:#cbd5e1;" id="q-topic">Topik</span>
+          <span class="badge" style="background:#451a03; color:#fde68a;" id="q-difficulty">Tinggi</span>
+        </div>
+        <div style="font-family:'Chakra Petch', sans-serif; font-weight:700; color:var(--gold);" id="q-counter">
+          SOAL #1 DARI 30
+        </div>
+      </div>
+
+      <div class="q-text" id="q-text">
+        Loading soal...
+      </div>
+
+      <!-- TTS Bar -->
+      <div style="background:rgba(0,0,0,0.4); border:1px solid #1e293b; padding:12px; border-radius:14px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-cyan" onclick="playQuestionSpeech()">▶ PUTAR SOAL</button>
+          <button class="btn btn-dark" onclick="pauseSpeech()">⏸ JEDA</button>
+          <button class="btn btn-dark" onclick="stopSpeech()">⏹ HENTIKAN</button>
+          <button class="btn btn-dark" onclick="playQuestionSpeech()">↺ ULANGI</button>
+        </div>
+        <div style="display:flex; gap:4px; align-items:center;">
+          <span style="font-size:0.75rem; color:#94a3b8; margin-right:4px;">Speed:</span>
+          <button class="btn btn-dark" style="padding:4px 8px; font-size:0.75rem;" onclick="setSpeed(0.9)">0.9×</button>
+          <button class="btn btn-dark" style="padding:4px 8px; font-size:0.75rem;" onclick="setSpeed(1.0)">1.0×</button>
+          <button class="btn btn-dark" style="padding:4px 8px; font-size:0.75rem;" onclick="setSpeed(1.25)">1.25×</button>
+        </div>
+      </div>
+
+      <!-- Timer Section -->
+      <div class="timer-container">
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div class="timer-badge" id="timer-box">
+            <span class="timer-num" id="timer-val">5</span>
+            <span class="timer-unit">DETIK</span>
+          </div>
+          <div>
+            <div style="font-size:0.75rem; font-weight:700; color:#94a3b8; text-transform:uppercase;">WAKTU BERPIKIR</div>
+            <div id="timer-status" style="font-size:0.85rem; color:#fbbf24;">Siap atau tekan putar soal untuk mulai timer.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button class="btn btn-dark" onclick="extendTimer(5)">+5s</button>
+          <button class="btn btn-dark" onclick="extendTimer(10)">+10s</button>
+          <button class="btn btn-dark" onclick="extendTimer(15)">+15s</button>
+          <button class="btn btn-dark" onclick="toggleTimer()">JEDA/LANJUT</button>
+          <button class="btn btn-emerald" onclick="readyToAnswer()">SIAP MENJAWAB!</button>
+        </div>
+      </div>
+
+      <!-- Answer / Reveal Box -->
+      <div id="ready-panel" style="text-align:center; padding:16px; border:1px dashed #334155; border-radius:14px; margin-top:16px;">
+        <div style="font-weight:700; margin-bottom:8px;">TIM SUDAH SIAP MENJAWAB SECARA LISAN?</div>
+        <button class="btn btn-gold" style="font-size:1rem; padding:12px 28px;" onclick="revealAnswer()">
+          👁️ PUTAR KUNCI JAWABAN
+        </button>
+      </div>
+
+      <div id="answer-panel" class="answer-box hidden">
+        <div style="font-size:0.75rem; font-weight:700; color:var(--gold); text-transform:uppercase;">KUNCI JAWABAN RESMI</div>
+        <div class="answer-title" id="ans-text">25</div>
+        <div class="explanation" id="ans-expl">Pembahasan soal...</div>
+
+        <div style="margin-top:20px;">
+          <div style="font-size:0.75rem; font-weight:700; color:#94a3b8; text-transform:uppercase; margin-bottom:8px; text-align:center;">PENILAIAN JAWABAN</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <button class="btn btn-emerald" style="padding:14px; font-size:1rem;" onclick="scoreAnswer('correct')">
+              ✓ JAWABAN BENAR
+            </button>
+            <button class="btn btn-rose" style="padding:14px; font-size:1rem;" onclick="scoreAnswer('wrong')">
+              ✕ JAWABAN SALAH
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav buttons -->
+      <div style="display:flex; justify-content:space-between; margin-top:24px; padding-top:16px; border-top:1px solid #1e293b;">
+        <button class="btn btn-dark" onclick="prevQuestion()" id="btn-prev">← SEBELUMNYA</button>
+        <button class="btn btn-cyan" onclick="nextQuestion()" id="btn-next">BERIKUTNYA →</button>
+      </div>
+    </div>
+
+    <!-- 1-30 Grid Matrix -->
+    <div class="card" style="margin-top:20px;">
+      <div style="font-size:0.75rem; font-weight:700; color:#94a3b8; text-transform:uppercase; margin-bottom:8px;">
+        NAVIGASI NOMOR SOAL (1 - 30)
+      </div>
+      <div class="grid-nav" id="grid-container"></div>
+    </div>
+  </main>
+
+  <footer>
+    SMAS TUNAS BARU JIN SEUNG BATAM • THE CHAMPIONS ARENA 2026 • HME POLITEKNIK NEGERI BATAM
+  </footer>
+
+  <script>
+    // 30 Verified Questions Database
+    const QUESTIONS = [
+      { id: 1, category: "MATEMATIKA", difficulty: "Menengah", topic: "Aljabar & Persamaan Kuadrat", text: "Jika α dan β adalah akar-akar dari persamaan kuadrat x² - 7x + 12 = 0, berapakah nilai dari α² + β²?", tts: "Soal nomor 1. Kategori Matematika. Jika alfa dan beta adalah akar-akar dari persamaan kuadrat x kuadrat dikurang tujuh x ditambah dua belas sama dengan nol, berapakah nilai dari alfa kuadrat ditambah beta kuadrat?", ans: "25", expl: "Berdasarkan Teorema Vieta: α + β = 7 dan α · β = 12. Nilai α² + β² = (α + β)² - 2αβ = 7² - 2(12) = 49 - 24 = 25." },
+      { id: 2, category: "MATEMATIKA", difficulty: "Menengah", topic: "Barisan & Deret", text: "Suku ke-3 suatu barisan aritmetika adalah 11 dan suku ke-8 adalah 26. Berapakah nilai suku ke-15 barisan tersebut?", tts: "Soal nomor 2. Kategori Matematika. Suku ke-tiga suatu barisan aritmetika adalah sebelas dan suku ke-delapan adalah dua puluh enam. Berapakah nilai suku ke-lima belas barisan tersebut?", ans: "47", expl: "Beda b = (26 - 11) / (8 - 3) = 3. Suku pertama a = 11 - 2(3) = 5. U15 = a + 14b = 5 + 14(3) = 47." },
+      { id: 3, category: "MATEMATIKA", difficulty: "Tinggi", topic: "Trigonometri Sudut Rangkap", text: "Jika sudut lancip x memenuhi sin x = 3/5, berapakah nilai eksak dari cos 2x?", tts: "Soal nomor 3. Kategori Matematika. Jika sudut lancip x memenuhi sinus x sama dengan tiga per lima, berapakah nilai eksak dari cosinus dua x?", ans: "7/25", expl: "Rumus sudut rangkap cos 2x = 1 - 2 sin² x = 1 - 2(9/25) = 1 - 18/25 = 7/25 (atau 0,28)." },
+      { id: 4, category: "MATEMATIKA", difficulty: "Menengah", topic: "Logaritma", text: "Berapakah nilai sederhana dari ²log 48 - ²log 3 + ³log 27?", tts: "Soal nomor 4. Kategori Matematika. Berapakah nilai sederhana dari dua log empat puluh delapan dikurang dua log tiga ditambah tiga log dua puluh tujuh?", ans: "7", expl: "²log (48/3) = ²log 16 = 4. Dan ³log 27 = 3. Maka 4 + 3 = 7." },
+      { id: 5, category: "MATEMATIKA", difficulty: "Tinggi", topic: "Kombinatorika & Peluang", text: "Dari sebuah klub riset beranggotakan 6 siswa laki-laki dan 4 siswa perempuan, akan dibentuk delegasi cerdas cermat 3 orang. Berapa banyak kombinasi delegasi yang terdiri tepat atas 2 laki-laki dan 1 perempuan?", tts: "Soal nomor 5. Kategori Matematika. Berapa banyak kombinasi delegasi yang terdiri tepat atas dua laki-laki dan satu perempuan dari enam laki-laki dan empat perempuan?", ans: "60", expl: "C(6,2) × C(4,1) = 15 × 4 = 60 cara." },
+      { id: 6, category: "MATEMATIKA", difficulty: "Menengah", topic: "Geometri Dimensi Tiga", text: "Sebuah kubus ABCD.EFGH memiliki panjang rusuk 6 cm. Berapakah panjang diagonal ruang AG kubus tersebut?", tts: "Soal nomor 6. Kategori Matematika. Sebuah kubus memiliki panjang rusuk enam sentimeter. Berapakah panjang diagonal ruang kubus tersebut?", ans: "6√3 cm", expl: "Panjang diagonal ruang kubus rusuk s adalah s√3 = 6√3 cm." },
+      { id: 7, category: "MATEMATIKA", difficulty: "Tinggi", topic: "Kalkulus & Garis Singgung", text: "Tentukan gradien garis singgung pada kurva y = 2x³ - 3x² + 5 di titik dengan absis x = 2.", tts: "Soal nomor 7. Kategori Matematika. Tentukan gradien garis singgung kurva y sama dengan dua x pangkat tiga dikurang tiga x kuadrat ditambah lima pada absis x sama dengan dua.", ans: "12", expl: "y' = 6x² - 6x. Substitusi x = 2: m = 6(4) - 6(2) = 24 - 12 = 12." },
+      { id: 8, category: "MATEMATIKA", difficulty: "Menengah", topic: "Matriks & Determinan", text: "Diberikan matriks A ordo 2x2 dengan baris pertama [4, 3] dan baris kedua [2, 5]. Berapakah nilai determinan dari matriks A tersebut?", tts: "Soal nomor 8. Kategori Matematika. Diberikan matriks A ordo dua kali dua dengan baris pertama empat dan tiga, serta baris kedua dua dan lima. Berapakah nilai determinan matriks A?", ans: "14", expl: "det(A) = (4)(5) - (3)(2) = 20 - 6 = 14." },
+
+      { id: 9, category: "FISIKA", difficulty: "Menengah", topic: "Kinematika GLBB", text: "Sebuah robot beroda mula-mula diam lalu dipercepat beraturan sebesar 3 m/s² selama 6 sekon pada lintasan lurus. Berapakah total jarak yang ditempuhnya?", tts: "Soal nomor 9. Kategori Fisika. Sebuah robot mula-mula diam dipercepat beraturan sebesar tiga meter per sekon kuadrat selama enam sekon. Berapakah total jarak tempuhnya?", ans: "54 meter", expl: "s = v0·t + ½ a·t² = 0 + ½(3)(36) = 54 meter." },
+      { id: 10, category: "FISIKA", difficulty: "Menengah", topic: "Hukum II Newton", text: "Sebuah balok bermassa 5 kg ditarik dengan gaya horizontal konstan sebesar 30 Newton di atas lantai licin tanpa gesekan. Berapakah percepatan gerak balok tersebut?", tts: "Soal nomor 10. Kategori Fisika. Balok bermassa lima kilogram ditarik dengan gaya tiga puluh Newton di lantai licin. Berapakah percepatan geraknya?", ans: "6 m/s²", expl: "a = ΣF / m = 30 / 5 = 6 m/s²." },
+      { id: 11, category: "FISIKA", difficulty: "Menengah", topic: "Energi Mekanik", text: "Sebuah benda bermassa 2 kg jatuh bebas dari keadaan diam pada ketinggian 10 meter di atas tanah. Dengan percepatan gravitasi g = 10 m/s², berapakah energi kinetik benda saat menyentuh tanah?", tts: "Soal nomor 11. Kategori Fisika. Benda bermassa dua kilogram jatuh bebas dari ketinggian sepuluh meter dengan gravitasi sepuluh. Berapakah energi kinetiknya saat menyentuh tanah?", ans: "200 Joule", expl: "Ek = Ep_awal = m·g·h = 2 × 10 × 10 = 200 Joule." },
+      { id: 12, category: "FISIKA", difficulty: "Tinggi", topic: "Impuls & Momentum", text: "Sebuah bola bermassa 0,2 kg bergerak ke barat dengan kelajuan 15 m/s, dipukul balik ke timur dengan kelajuan 25 m/s. Berapakah besar impuls tumbukan yang dialami bola?", tts: "Soal nomor 12. Kategori Fisika. Bola bermassa nol koma dua kilogram bergerak lima belas meter per sekon, lalu dipukul balik menjadi dua puluh lima meter per sekon. Berapakah besar impuls tumbukannya?", ans: "8 N·s", expl: "I = m · |v2 - v1| = 0,2 × |25 - (-15)| = 0,2 × 40 = 8 N·s." },
+      { id: 13, category: "FISIKA", difficulty: "Menengah", topic: "Tekanan Hidrostatis", text: "Berapakah besar tekanan hidrostatis pada kedalaman 4 meter di dalam air tawar bermassa jenis 1000 kg/m³? Gunakan g = 10 m/s².", tts: "Soal nomor 13. Kategori Fisika. Berapakah besar tekanan hidrostatis pada kedalaman empat meter di dalam air bermassa jenis seribu dengan gravitasi sepuluh?", ans: "40.000 Pa", expl: "Ph = ρ·g·h = 1000 × 10 × 4 = 40.000 Pa (40 kPa)." },
+      { id: 14, category: "FISIKA", difficulty: "Tinggi", topic: "Efisiensi Mesin Carnot", text: "Sebuah mesin kalor Carnot beroperasi di antara reservoir suhu 500 Kelvin dan 300 Kelvin. Berapakah efisiensi termal maksimum mesin tersebut dalam persen?", tts: "Soal nomor 14. Kategori Fisika. Mesin Carnot bekerja antara reservoir lima ratus Kelvin dan tiga ratus Kelvin. Berapakah efisiensinya dalam persen?", ans: "40%", expl: "η = (1 - 300/500) × 100% = 40%." },
+      { id: 15, category: "FISIKA", difficulty: "Menengah", topic: "Rangkaian Paralel", text: "Tiga buah resistor identik masing-masing bernilai 6 Ohm dirangkai secara paralel. Berapakah nilai hambatan pengganti total rangkaian tersebut?", tts: "Soal nomor 15. Kategori Fisika. Tiga resistor bernilai enam Ohm dirangkai paralel. Berapakah hambatan pengganti totalnya?", ans: "2 Ohm", expl: "Rp = 6 / 3 = 2 Ohm." },
+      { id: 16, category: "FISIKA", difficulty: "Menengah", topic: "Gelombang & Bunyi", text: "Apakah nama fenomena fisis berupa perubahan frekuensi gelombang bunyi akibat gerak relatif antara sumber bunyi dan pengamat?", tts: "Soal nomor 16. Kategori Fisika. Apakah nama fenomena fisis berupa perubahan frekuensi gelombang bunyi akibat gerak relatif antara sumber dan pengamat?", ans: "Efek Doppler", expl: "Efek Doppler adalah gejala perubahan frekuensi teramati akibat gerak relatif sumber dan pendengar." },
+
+      { id: 17, category: "BAHASA INGGRIS", difficulty: "Menengah", topic: "Vocabulary & Synonyms", text: "What is the precise academic synonym for the adjective 'meticulous'?", tts: "Question number 17. English Category. What is the precise academic synonym for the adjective meticulous?", ans: "Thorough", expl: "'Meticulous' means very careful and precise; its primary synonym is 'thorough'." },
+      { id: 18, category: "BAHASA INGGRIS", difficulty: "Menengah", topic: "Second Conditional", text: "Complete the sentence with the correct verb form: 'If our robotics team (have) modern sensors, we would definitely win the national competition.'", tts: "Question number 18. Complete the sentence with the correct verb form: If our robotics team have modern sensors, we would win.", ans: "had", expl: "Second conditional uses: If + Simple Past (had), would + infinitive." },
+      { id: 19, category: "BAHASA INGGRIS", difficulty: "Tinggi", topic: "Subject-Verb Agreement", text: "Choose the correct verb in parentheses: 'Neither the teacher nor the students (was / were) present during the electronic seminar yesterday.'", tts: "Question number 19. Choose the correct verb: Neither the teacher nor the students was or were present.", ans: "were", expl: "In 'neither... nor...', the verb agrees with the closer subject ('the students' -> 'were')." },
+      { id: 20, category: "BAHASA INGGRIS", difficulty: "Menengah", topic: "Idiomatic Expressions", text: "What is the definition of the common English idiom 'to bite the bullet'?", tts: "Question number 20. What is the definition of the English idiom: to bite the bullet?", ans: "To face a difficult situation with courage", expl: "'To bite the bullet' means to bravely face or endure a tough, unpleasant situation." },
+      { id: 21, category: "BAHASA INGGRIS", difficulty: "Tinggi", topic: "Antonyms", text: "What is the antonym of the word 'ephemeral', which describes something lasting for a very short time?", tts: "Question number 21. What is the antonym of the word ephemeral?", ans: "Permanent", expl: "'Ephemeral' means transitory; its antonym is 'permanent' or 'eternal'." },
+      { id: 22, category: "BAHASA INGGRIS", difficulty: "Menengah", topic: "Passive Voice", text: "Transform the following sentence into the correct passive voice: 'Alexander Fleming discovered penicillin in 1928.'", tts: "Question number 22. Transform into passive voice: Alexander Fleming discovered penicillin in 1928.", ans: "Penicillin was discovered by Alexander Fleming in 1928", expl: "Simple past passive: Subject + was + past participle + by agent." },
+      { id: 23, category: "BAHASA INGGRIS", difficulty: "Tinggi", topic: "Figures of Speech", text: "Identify the figure of speech used in this sentence: 'The ruthless lightning danced furiously across the midnight sky.'", tts: "Question number 23. Identify the figure of speech: The ruthless lightning danced furiously across the midnight sky.", ans: "Personification", expl: "Personification attributes human qualities (dancing) to non-human elements (lightning)." },
+
+      { id: 24, category: "KIMIA", difficulty: "Menengah", topic: "Konfigurasi Elektron", text: "Unsur klorin (Cl) memiliki nomor atom 17. Berapakah jumlah elektron valensi yang terdapat pada kulit terluar atom klorin tersebut?", tts: "Soal nomor 24. Kategori Kimia. Unsur klorin memiliki nomor atom tujuh belas. Berapakah jumlah elektron valensinya?", ans: "7", expl: "Konfigurasi Cl (Z=17): 1s² 2s² 2p⁶ 3s² 3p⁵. Kulit n=3 memiliki 2 + 5 = 7 elektron valensi." },
+      { id: 25, category: "KIMIA", difficulty: "Menengah", topic: "Stoikiometri & Mol", text: "Berapakah massa dari 0,5 mol gas karbon dioksida (CO₂)? Diketahui Ar C = 12 dan Ar O = 16.", tts: "Soal nomor 25. Kategori Kimia. Berapakah massa dari nol koma lima mol gas karbon dioksida dengan Ar C dua belas dan Ar O enam belas?", ans: "22 gram", expl: "Mr CO₂ = 12 + 32 = 44 g/mol. Massa = 0,5 mol × 44 g/mol = 22 gram." },
+      { id: 26, category: "KIMIA", difficulty: "Menengah", topic: "pH Asam Kuat", text: "Berapakah nilai pH dari suatu larutan asam klorida (HCl) yang memiliki konsentrasi ion hidrogen [H⁺] sebesar 0,001 M (10⁻³ M)?", tts: "Soal nomor 26. Kategori Kimia. Berapakah nilai pH larutan asam klorida dengan konsentrasi sepuluh pangkat minus tiga Molar?", ans: "3", expl: "pH = -log [H⁺] = -log (10⁻³) = 3." },
+      { id: 27, category: "KIMIA", difficulty: "Tinggi", topic: "Bilangan Oksidasi", text: "Tentukan bilangan oksidasi unsur mangan (Mn) di dalam ion permanganat (MnO₄⁻).", tts: "Soal nomor 27. Kategori Kimia. Tentukan bilangan oksidasi unsur mangan di dalam ion permanganat MnO empat minus.", ans: "+7", expl: "Mn + 4(-2) = -1 => Mn - 8 = -1 => Mn = +7." },
+      { id: 28, category: "KIMIA", difficulty: "Menengah", topic: "Sifat Keperiodikan", text: "Dalam satu periode pada sistem periodik unsur dari arah kiri ke kanan, bagaimanakah kecenderungan ukuran jari-jari atom?", tts: "Soal nomor 28. Kategori Kimia. Dalam satu periode dari kiri ke kanan, bagaimanakah kecenderungan ukuran jari-jari atom?", ans: "Semakin kecil", expl: "Muatan inti efektif bertambah kuat menarik elektron terluar ke inti sehingga jari-jari atom makin mengecil." },
+      { id: 29, category: "KIMIA", difficulty: "Menengah", topic: "Termokimia", text: "Apakah sebutan untuk reaksi kimia yang melepaskan kalor ke lingkungan dan memiliki nilai perubahan entalpi bertanda negatif (ΔH < 0)?", tts: "Soal nomor 29. Kategori Kimia. Apakah sebutan untuk reaksi kimia yang melepaskan kalor ke lingkungan dengan delta H negatif?", ans: "Reaksi Eksoterm", expl: "Reaksi eksoterm melepaskan kalor dari sistem ke lingkungan dengan ΔH < 0." },
+      { id: 30, category: "KIMIA", difficulty: "Tinggi", topic: "Sel Volta", text: "Pada sel Volta, elektroda manakah yang bertindak sebagai anoda tempat terjadinya reaksi oksidasi, dan bermuatan negatif atau positif?", tts: "Soal nomor 30. Kategori Kimia. Pada sel Volta, elektroda manakah yang bertindak sebagai anoda tempat terjadinya reaksi oksidasi?", ans: "Kutub negatif", expl: "Pada sel Volta, anoda bermuatan negatif (tempat oksidasi) dan katoda bermuatan positif (tempat reduksi)." }
+    ];
+
+    // State
+    let currentIndex = 0;
+    let records = JSON.parse(localStorage.getItem('the_champions_arena_standalone_records') || '{}');
+    let timerVal = 5;
+    let timerInterval = null;
+    let isTimerRunning = false;
+    let ttsRate = 1.0;
+    let audioEnabled = true;
+
+    // Web Audio Synthesizer
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playVictorySound() {
+      if (!audioEnabled) return;
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+        gain.gain.setValueAtTime(0.25, now + idx * 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * 0.12);
+        osc.stop(now + idx * 0.12 + 0.5);
+      });
+    }
+
+    function playWrongSound() {
+      if (!audioEnabled) return;
+      const ctx = getAudioCtx();
+      const now = ctx.currentTime;
+      [150, 140].forEach((freq) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.5);
+      });
+    }
+
+    // TTS Web Speech API
+    function playQuestionSpeech() {
+      window.speechSynthesis.cancel();
+      stopTimer();
+      const q = QUESTIONS[currentIndex];
+      const utter = new SpeechSynthesisUtterance(q.tts);
+      utter.rate = ttsRate;
+      utter.lang = q.category === 'BAHASA INGGRIS' ? 'en-US' : 'id-ID';
+
+      utter.onend = () => {
+        startTimer();
+      };
+      window.speechSynthesis.speak(utter);
+    }
+
+    function pauseSpeech() { window.speechSynthesis.pause(); }
+    function stopSpeech() { window.speechSynthesis.cancel(); }
+    function setSpeed(s) { ttsRate = s; playQuestionSpeech(); }
+
+    // Timer functions
+    function startTimer() {
+      stopTimer();
+      isTimerRunning = true;
+      document.getElementById('timer-status').innerText = 'Waktu berpikir sedang berjalan...';
+      document.getElementById('timer-box').classList.remove('timer-urgent');
+
+      timerInterval = setInterval(() => {
+        if (timerVal <= 1) {
+          timerVal = 0;
+          stopTimer();
+          document.getElementById('timer-val').innerText = '0';
+          document.getElementById('timer-status').innerText = '⚠️ WAKTU HABIS! Tim dipersilakan menjawab.';
+          document.getElementById('timer-box').classList.add('timer-urgent');
+          return;
+        }
+        timerVal--;
+        document.getElementById('timer-val').innerText = timerVal;
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      isTimerRunning = false;
+    }
+
+    function toggleTimer() {
+      if (isTimerRunning) {
+        stopTimer();
+        document.getElementById('timer-status').innerText = 'Timer dijeda.';
+      } else {
+        startTimer();
+      }
+    }
+
+    function extendTimer(sec) {
+      timerVal += sec;
+      document.getElementById('timer-val').innerText = timerVal;
+      document.getElementById('timer-box').classList.remove('timer-urgent');
+      startTimer();
+    }
+
+    function readyToAnswer() {
+      stopTimer();
+      stopSpeech();
+      document.getElementById('timer-status').innerText = 'Tim siap menjawab secara lisan.';
+    }
+
+    // Reveal and Scoring
+    function revealAnswer() {
+      stopTimer();
+      stopSpeech();
+      const q = QUESTIONS[currentIndex];
+      document.getElementById('ready-panel').classList.add('hidden');
+      document.getElementById('answer-panel').classList.remove('hidden');
+      document.getElementById('ans-text').innerText = q.ans;
+      document.getElementById('ans-expl').innerText = q.expl;
+
+      const utter = new SpeechSynthesisUtterance("Kunci jawaban benar adalah: " + q.ans + ". Pembahasan: " + q.expl);
+      utter.lang = 'id-ID';
+      utter.rate = ttsRate;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function scoreAnswer(res) {
+      records[QUESTIONS[currentIndex].id] = res;
+      localStorage.setItem('the_champions_arena_standalone_records', JSON.stringify(records));
+      if (res === 'correct') {
+        playVictorySound();
+        alert('🎉 LUAR BIASA! JAWABAN BENAR!');
+      } else {
+        playWrongSound();
+        alert('BELUM TEPAT! Jawaban yang benar adalah: ' + QUESTIONS[currentIndex].ans);
+      }
+      updateScoreBadge();
+      renderGrid();
+    }
+
+    // Render Question
+    function loadQuestion(idx) {
+      stopTimer();
+      stopSpeech();
+      currentIndex = idx;
+      const q = QUESTIONS[idx];
+
+      document.getElementById('q-category').innerText = q.category;
+      document.getElementById('q-topic').innerText = q.topic;
+      document.getElementById('q-difficulty').innerText = q.difficulty;
+      document.getElementById('q-counter').innerText = `SOAL #${q.id} DARI 30`;
+      document.getElementById('q-text').innerText = q.text;
+
+      timerVal = 5;
+      document.getElementById('timer-val').innerText = '5';
+      document.getElementById('timer-box').classList.remove('timer-urgent');
+      document.getElementById('timer-status').innerText = 'Tekan PUTAR SOAL untuk mulai membacakan dan timer.';
+
+      // Check if already scored
+      if (records[q.id]) {
+        document.getElementById('ready-panel').classList.add('hidden');
+        document.getElementById('answer-panel').classList.remove('hidden');
+        document.getElementById('ans-text').innerText = q.ans;
+        document.getElementById('ans-expl').innerText = q.expl;
+      } else {
+        document.getElementById('ready-panel').classList.remove('hidden');
+        document.getElementById('answer-panel').classList.add('hidden');
+      }
+
+      document.getElementById('btn-prev').disabled = idx === 0;
+      document.getElementById('btn-next').disabled = idx === QUESTIONS.length - 1;
+
+      renderGrid();
+    }
+
+    function nextQuestion() {
+      if (currentIndex < QUESTIONS.length - 1) loadQuestion(currentIndex + 1);
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) loadQuestion(currentIndex - 1);
+    }
+
+    function renderGrid() {
+      const container = document.getElementById('grid-container');
+      container.innerHTML = '';
+      QUESTIONS.forEach((q, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'grid-btn';
+        if (idx === currentIndex) btn.classList.add('active');
+        if (records[q.id] === 'correct') btn.classList.add('correct');
+        if (records[q.id] === 'wrong') btn.classList.add('wrong');
+        btn.innerText = q.id;
+        btn.onclick = () => loadQuestion(idx);
+        container.appendChild(btn);
+      });
+    }
+
+    function updateScoreBadge() {
+      let b = 0, s = 0;
+      Object.values(records).forEach(v => {
+        if (v === 'correct') b++;
+        if (v === 'wrong') s++;
+      });
+      document.getElementById('score-badge').innerText = `Skor: ${b}B / ${s}S`;
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      document.getElementById('audio-toggle-btn').innerText = audioEnabled ? '🔊 Audio' : '🔇 Hening';
+    }
+
+    function openResetModal() {
+      if (confirm('Reset seluruh riwayat latihan di perangkat ini?')) {
+        records = {};
+        localStorage.removeItem('the_champions_arena_standalone_records');
+        updateScoreBadge();
+        loadQuestion(currentIndex);
+      }
+    }
+
+    // Init
+    window.addEventListener('load', () => {
+      loadQuestion(0);
+      updateScoreBadge();
+    });
+  </script>
+</body>
+</html>

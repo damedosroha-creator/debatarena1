@@ -1,0 +1,6 @@
+{
+  "name": "The Champions Arena - Cerdas Cermat SMAS Tunas Baru Jin Seung Batam",
+  "description": "Aplikasi cerdas cermat akademik futuristik persiapan JUARA 1 The Champions Arena (HME Polibatam) untuk SMAS Tunas Baru Jin Seung Batam mencakup Matematika, Fisika, Bahasa Inggris, dan Kimia dengan TTS dan audio interaktif.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
